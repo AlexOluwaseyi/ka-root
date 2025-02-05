@@ -1,19 +1,12 @@
-// const express = require("express");
 import express from "express";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import morgan from "morgan";
 
+import morgan from "morgan";
 const app = express();
 const port = 3000;
 
-// ES module path resolution
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Dynamic path for the JSON file
-const __filepath = path.join(__dirname, "../mock/quiz.json");
+// Import routers from routes
+import UserRouter from "../app/v1/routes/userRoutes.js";
+import QuizRouter from "../app/v1/routes/quizRoutes.js";
 
 // Logging
 morgan.format(
@@ -30,27 +23,22 @@ app.use(morgan("customFormat"));
  *  app.use(morgan("customFormat", { stream: accessLogStream }));
  */
 
-let QuizBank = {};
-
-app.use(express.json());
-
-// Read the file synchronously and parse JSON
-try {
-  const fileContent = fs.readFileSync(__filepath, "utf-8");
-  QuizBank = JSON.parse(fileContent);
-} catch (error) {
-  console.error("Error reading or parsing quiz.json:", error.message);
-}
-
-/**
- * App routes starts here
- *
- */
-
 // Get Home or root
 app.get("/", (req, res) => {
   res.send("Welcome to Ka-Root!");
 });
+
+// Define routes
+app.use("/users", UserRouter);
+app.use("/quizzes", QuizRouter);
+
+/**
+/**
+ * App routes starts here
+ *
+ *=/
+
+
 
 // Get all quizes
 app.get("/allquiz", (req, res) => {
@@ -120,6 +108,8 @@ app.get("/quiz/:id/:query", (req, res) => {
   const response = quizById[query];
   res.send({ [query]: response });
 });
+
+*/
 
 // Start the server
 app.listen(port, () => {
