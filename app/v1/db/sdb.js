@@ -1,7 +1,10 @@
-import User from "../model/user.js";
+import { User, initUserDatabase } from "../models/userModel.js";
 
-const newUser = await User.create({
-  name: "Rosbaaods Joy",
-  email: "akint@def.com",
-});
-console.log(newUser.toJSON());
+(async () => {
+  await initUserDatabase();
+  const newUser = await User.create({
+    name: "Rosbaaods Joy",
+    email: "akinsfgdft@def.com",
+  });
+  console.log(newUser.toJSON());
+})();

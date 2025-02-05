@@ -1,6 +1,6 @@
 {
   "name": "ka-root",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,6 +11,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "dotenv": "^16.4.7",
+    "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.4",

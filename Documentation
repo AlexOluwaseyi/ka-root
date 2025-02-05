@@ -1,0 +1,37 @@
+## Tree
+=====================================
+app
+`-- v1
+|-- controllers
+|   |-- quizController.js
+|   `-- userController.js
+|-- db
+|   |-- db.db
+|   |-- db.js
+|   |-- db.sqlite
+|   |-- db2.sqlite
+|   |-- mdb.js
+|   `-- sdb.js
+|-- models
+|   |-- quizModel.js
+|   `-- userModel.js
+|-- routes
+|   |-- quizRoutes.js
+|   `-- userRoutes.js
+`-- utils
+`-- utils.js
+
+6 directories, 13 files
+=====================================
+## Creating a user
+
+import User from "../models/userModel.js";
+
+const newUser = await User.create({
+  name: "Rosbaaods Joy",
+  email: "akint@def.com",
+});
+console.log(newUser.toJSON());
+=====================================
+## Testing db and creating users 
+> node app/v1/db/sdb.js 

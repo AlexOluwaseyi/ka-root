@@ -6,10 +6,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Get DB_PATH from environment variables
-const userDB = process.env.USERS_DB;
+const quizDB = process.env.QUIZES_DB;
 
 // Validate that USER_DB is defined
-if (!userDB) {
+if (!quizDB) {
   console.error("Failed to load database from file.");
   process.exit(1);
 }
@@ -17,12 +17,12 @@ if (!userDB) {
 // Initialize Sequelize with SQLite
 const sequelize = new Sequelize({
   dialect: "sqlite",
-  storage: userDB, // Use userDB directly
+  storage: quizDB,
   logging: console.log, // Logs SQL queries for debugging
 });
 
-export const User = sequelize.define(
-  "user",
+export const Quiz = sequelize.define(
+  "quizes",
   {
     name: {
       type: DataTypes.TEXT,
@@ -54,7 +54,7 @@ export const User = sequelize.define(
 );
 
 // Function to initialize the database
-export const initUserDatabase = async () => {
+export const initQuizDatabase = async () => {
   try {
     await sequelize.authenticate();
     console.log("Database connected successfully.");
