@@ -15,53 +15,47 @@ if (!quizDB) {
 }
 
 // Initialize Sequelize with SQLite
-const sequelize = new Sequelize({
+const quizSequelize = new Sequelize({
   dialect: "sqlite",
   storage: quizDB,
-  logging: console.log, // Logs SQL queries for debugging
+  logging: false,
+  // logging: console.log, // Logs SQL queries for debugging
 });
 
-export const Quiz = sequelize.define(
-  "quizes",
+export const Quiz = quizSequelize.define(
+  "quiz",
   {
-    name: {
+    question: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
     uid: {
       type: DataTypes.STRING,
-      defaultValue: uuidv4,
+      defaultValue: () => uuidv4(),
       allowNull: false,
       primaryKey: true,
     },
-    email: {
+    category: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
-    history: {
+    options: {
       type: DataTypes.JSON,
-      defaultValue: {},
+      allowNull: false,
     },
-    rank: {
-      type: DataTypes.INTEGER,
-      defaultValue: 1,
+    answer: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    flag: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
     },
   },
   {
-    tableName: "users",
+    tableName: "quiz",
   }
 );
 
-// Function to initialize the database
-export const initQuizDatabase = async () => {
-  try {
-    await sequelize.authenticate();
-    console.log("Database connected successfully.");
-    await sequelize.sync(); // Synchronize models with the database
-    console.log("Database synchronized successfully.");
-  } catch (error) {
-    console.error("Database initialization failed:", error.message);
-    process.exit(1); // Exit the process if database connection fails
-  }
-};
+export { quizSequelize };

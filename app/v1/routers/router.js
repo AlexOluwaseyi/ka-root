@@ -1,8 +1,8 @@
 import express from "express";
 
 // Import routers from routes
-import UserRouter from "../routes/userRoutes.js";
-import QuizRouter from "../routes/quizRoutes.js";
+import UserRouter from "./userRoutes.js";
+import QuizRouter from "./quizRoutes.js";
 
 const router = express.Router();
 

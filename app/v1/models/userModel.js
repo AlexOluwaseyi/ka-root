@@ -15,22 +15,27 @@ if (!userDB) {
 }
 
 // Initialize Sequelize with SQLite
-const sequelize = new Sequelize({
+const userSequelize = new Sequelize({
   dialect: "sqlite",
-  storage: userDB, // Use userDB directly
-  logging: console.log, // Logs SQL queries for debugging
+  storage: userDB,
+  logging: false,
+  // logging: console.log,
 });
 
-export const User = sequelize.define(
+export const User = userSequelize.define(
   "user",
   {
-    name: {
+    fullName: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      // allowNull: false,
+    },
+    username: {
+      type: DataTypes.TEXT,
+      // allowNull: false,
     },
     uid: {
       type: DataTypes.STRING,
-      defaultValue: uuidv4,
+      defaultValue: () => uuidv4(),
       allowNull: false,
       primaryKey: true,
     },
@@ -38,6 +43,10 @@ export const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+    },
+    hashedPassword: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     history: {
       type: DataTypes.JSON,
@@ -47,21 +56,31 @@ export const User = sequelize.define(
       type: DataTypes.INTEGER,
       defaultValue: 1,
     },
+    quizCount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    currentScore: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
   },
   {
     tableName: "users",
   }
 );
 
-// Function to initialize the database
-export const initUserDatabase = async () => {
-  try {
-    await sequelize.authenticate();
-    console.log("Database connected successfully.");
-    await sequelize.sync(); // Synchronize models with the database
-    console.log("Database synchronized successfully.");
-  } catch (error) {
-    console.error("Database initialization failed:", error.message);
-    process.exit(1); // Exit the process if database connection fails
-  }
-};
+// // Function to initialize the database
+// export const initDb = async () => {
+//   try {
+//     await sequelize.authenticate();
+//     console.log("Database connected successfully.");
+//     await sequelize.sync(); // Synchronize models with the database
+//     console.log("Database synchronized successfully.");
+//   } catch (error) {
+//     console.error("Database initialization failed:", error.message);
+//     process.exit(1); // Exit the process if database connection fails
+//   }
+// };
+
+export { userSequelize };

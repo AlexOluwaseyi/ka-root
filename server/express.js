@@ -1,5 +1,5 @@
 import express from "express";
-import router from "../app/v1/routes/router.js";
+import router from "../app/v1/routers/router.js";
 import morgan from "morgan";
 const app = express();
 const port = 3000;

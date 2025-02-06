@@ -9,7 +9,6 @@ const router = express.Router();
 /**
  * Set up mock questions from json files
  */
-
 // ES module path resolution
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
