@@ -29,7 +29,7 @@ export const Quiz = quizSequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    uid: {
+    id: {
       type: DataTypes.STRING,
       defaultValue: () => uuidv4(),
       allowNull: false,

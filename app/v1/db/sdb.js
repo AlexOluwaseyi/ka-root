@@ -5,7 +5,7 @@ import {
   findUserByEmail,
   findUserById,
   findFlaggedQuiz,
-} from "../utils/utilsDb.js";
+} from "../utils/dbUtils.js";
 
 // await initDatabases();
 // const createUser = async () => {

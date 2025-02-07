@@ -41,16 +41,6 @@ export const findUserById = async (userId) => {
   }
 };
 
-// export const findQuizById = async (userId) => {
-//   const user = await findUserByField("id", userId);
-
-//   if (user) {
-//     return user;
-//   } else {
-//     throw new Error(`No user found with ID: ${userId}`);
-//   }
-// };
-
 export const findQuizById = async (id) => {
   try {
     const currentQuiz = await Quiz.findOne({
@@ -86,7 +76,7 @@ export const findFlaggedQuiz = async () => {
 
     return flaggedQuiz;
   } catch (error) {
-    console.error("Error finding user:", error.message);
+    console.error("Error finding flagged quiz:", error.message);
     throw error;
   }
 };

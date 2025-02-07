@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { User } from "../models/userModel.js";
-import { findUserByEmail, findUserById } from "../utils/utilsDb.js";
+import { findUserByEmail, findUserById } from "../utils/dbUtils.js";
 
 const saltRounds = 10;
 

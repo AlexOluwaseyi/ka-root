@@ -33,7 +33,7 @@ export const User = userSequelize.define(
       type: DataTypes.TEXT,
       // allowNull: false,
     },
-    uid: {
+    id: {
       type: DataTypes.STRING,
       defaultValue: () => uuidv4(),
       allowNull: false,

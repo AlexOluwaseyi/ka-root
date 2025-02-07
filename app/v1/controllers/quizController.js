@@ -113,8 +113,8 @@ export const checkQuizAnswer = async (req, res) => {
   }
 };
 
-// End game (save player score in game history)
-export const endGame = async (req, res) => {
+// Quit game (save player score in game history)
+export const quitGame = async (req, res) => {
   try {
     const player = await User.findByPk(req.params.id);
   } catch (error) {
