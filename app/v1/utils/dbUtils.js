@@ -1,6 +1,17 @@
 import { User } from "../models/userModel.js";
 import { Quiz } from "../models/quizModel.js";
 
+// Custom error class for database operations
+class DatabaseError extends Error {
+  constructor(message, operation, entity, details = null) {
+    super(message);
+    this.name = "DatabaseError";
+    this.operation = operation;
+    this.entity = entity;
+    this.details = details;
+  }
+}
+
 export const findUserByField = async (field, value) => {
   try {
     // Dynamically construct the where condition based on the field argument
@@ -21,24 +32,28 @@ export const findUserByField = async (field, value) => {
   }
 };
 
-export const findUserByEmail = async (userEmail) => {
-  const user = await findUserByField("email", userEmail);
+export const findUserByEmail = async (userId) => {
+  const user = await User.findOne({
+    where: { email },
+  });
 
-  if (user) {
-    return user;
-  } else {
-    throw new Error(`No user found with email: ${userEmail}`);
+  if (!user) {
+    throw new Error(`No user found with ID: ${email}`);
   }
+
+  return user; // Return the raw Sequelize instance
 };
 
 export const findUserById = async (userId) => {
-  const user = await findUserByField("id", userId);
+  const user = await User.findOne({
+    where: { userId },
+  });
 
-  if (user) {
-    return user;
-  } else {
+  if (!user) {
     throw new Error(`No user found with ID: ${userId}`);
   }
+
+  return user; // Return the raw Sequelize instance
 };
 
 export const findQuizById = async (id) => {

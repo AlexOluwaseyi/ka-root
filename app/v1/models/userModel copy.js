@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { v4 as uuidv4 } from "uuid";
 import { sequelize } from "../db/config.js";
-// import { isValidOTP } from "../utils/utils.js";
+import { isValidOTP } from "../utils/utils.js";
 
 export const User = sequelize.define(
   "user",
@@ -39,13 +39,14 @@ export const User = sequelize.define(
       allowNull: false,
     },
     hashedOTP: {
+      type: DataTypes.STRING,
+    },
+    otpMetaData: {
       type: DataTypes.JSON,
-      // defaultValue: () => ({
-      //   OTP: null,
-      //   attempts: 0,
-      //   createdAt: new Date().toISOString(),
-      //   expiredAt: new Date(Date.now() + 300000).toISOString(),
-      // }),
+      defaultValue: () => ({
+        created_at: new Date().toISOString(),
+        expired_at: new Date(Date.now() + 300000).toISOString(),
+      }),
     },
     history: {
       type: DataTypes.JSON,

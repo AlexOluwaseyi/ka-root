@@ -1,6 +1,8 @@
 import express from "express";
 import router from "../app/v1/routers/router.js";
 import morgan from "morgan";
+import bodyParser from "body-parser";
+
 const app = express();
 const port = 3000;
 
@@ -23,6 +25,14 @@ app.use(morgan("customFormat"));
 app.get("/", (req, res) => {
   res.send("Welcome to Ka-Root!");
 });
+
+app.use(express.json());
+
+// Parse JSON request bodies
+// app.use(bodyParser.json());
+
+// Parse URL-encoded data (from forms)
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Define routes
 app.use(router);
