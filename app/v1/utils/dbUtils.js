@@ -32,7 +32,7 @@ export const findUserByEmail = async (userEmail) => {
 };
 
 export const findUserById = async (userId) => {
-  const user = await findUserByField("uid", userId);
+  const user = await findUserByField("id", userId);
 
   if (user) {
     return user;
@@ -45,7 +45,7 @@ export const findQuizById = async (id) => {
   try {
     const currentQuiz = await Quiz.findOne({
       where: {
-        uid: id,
+        id: id,
       },
     });
 
@@ -57,6 +57,26 @@ export const findQuizById = async (id) => {
     return currentQuiz;
   } catch (error) {
     console.error("Error finding user:", error.message);
+    throw error;
+  }
+};
+
+export const findQuizByCategory = async (category) => {
+  try {
+    const categoryQuiz = await Quiz.findAll({
+      where: {
+        category: category,
+      },
+    });
+
+    if (categoryQuiz.length === 0) {
+      console.log(`No quiz found found for ${category}`);
+      return null;
+    }
+
+    return categoryQuiz;
+  } catch (error) {
+    console.error("Error finding quiz in category:", error.message);
     throw error;
   }
 };

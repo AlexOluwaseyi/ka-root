@@ -61,7 +61,6 @@ router.get("/category2", (req, res) => {
   res.json(response);
 });
 
-
 // Get all categories
 router.get("/category", (req, res) => {
   console.log("In here");

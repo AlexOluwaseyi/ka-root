@@ -1,28 +1,8 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { DataTypes } from "sequelize";
 import { v4 as uuidv4 } from "uuid";
-import dotenv from "dotenv";
+import { sequelize } from "../db/config.js";
 
-// Load environment variables from .env file
-dotenv.config();
-
-// Get DB_PATH from environment variables
-const userDB = process.env.USERS_DB;
-
-// Validate that USER_DB is defined
-if (!userDB) {
-  console.error("Failed to load database from file.");
-  process.exit(1);
-}
-
-// Initialize Sequelize with SQLite
-const userSequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: userDB,
-  logging: false,
-  // logging: console.log,
-});
-
-export const User = userSequelize.define(
+export const User = sequelize.define(
   "user",
   {
     fullName: {
@@ -33,7 +13,7 @@ export const User = userSequelize.define(
       type: DataTypes.TEXT,
       // allowNull: false,
     },
-    id: {
+    userId: {
       type: DataTypes.STRING,
       defaultValue: () => uuidv4(),
       allowNull: false,
@@ -43,6 +23,15 @@ export const User = userSequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    verified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     hashedPassword: {
       type: DataTypes.STRING,
@@ -69,18 +58,3 @@ export const User = userSequelize.define(
     tableName: "users",
   }
 );
-
-// // Function to initialize the database
-// export const initDb = async () => {
-//   try {
-//     await sequelize.authenticate();
-//     console.log("Database connected successfully.");
-//     await sequelize.sync(); // Synchronize models with the database
-//     console.log("Database synchronized successfully.");
-//   } catch (error) {
-//     console.error("Database initialization failed:", error.message);
-//     process.exit(1); // Exit the process if database connection fails
-//   }
-// };
-
-export { userSequelize };
