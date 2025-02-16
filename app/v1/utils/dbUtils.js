@@ -32,13 +32,13 @@ export const findUserByField = async (field, value) => {
   }
 };
 
-export const findUserByEmail = async (userId) => {
+export const findUserByEmail = async (email) => {
   const user = await User.findOne({
     where: { email },
   });
 
   if (!user) {
-    throw new Error(`No user found with ID: ${email}`);
+    throw new Error(`No user found with ID '${email}'`);
   }
 
   return user; // Return the raw Sequelize instance
@@ -50,7 +50,19 @@ export const findUserById = async (userId) => {
   });
 
   if (!user) {
-    throw new Error(`No user found with ID: ${userId}`);
+    throw new Error(`No user found with ID '${userId}'`);
+  }
+
+  return user; // Return the raw Sequelize instance
+};
+
+export const findUserByUsername = async (username) => {
+  const user = await User.findOne({
+    where: { username },
+  });
+
+  if (!user) {
+    throw new Error(`No user found with username '${username}'`);
   }
 
   return user; // Return the raw Sequelize instance

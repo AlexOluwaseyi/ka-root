@@ -1,24 +1,23 @@
 import express from "express";
-// import { generateOTP } from "../utils/utils.js";
-import { generateUserOTP, verifyUserOTP } from "../middleware/auth.js";
-import { MongoTailableCursorError } from "mongodb";
+import { generateUserOTP, verifyUserOTP } from "../utils/otpUtils.js";
 
 const router = express.Router();
 
 router.get("/generate", async (req, res) => {
   try {
     const { userId } = req.body;
-    const { plainOTP, Mail } = await generateUserOTP(userId);
-    // const { plainOTP } = otp;
+    // const { plainOTP } = await generateUserOTP(userId);
+    const { plainOTP, Mail, SMTP } = await generateUserOTP(userId);
     return res.status(200).send({
       Success: "OTP generated successfully",
       OTP: `${plainOTP}`,
       Mail: Mail.message,
+      SMTP: SMTP.message,
     });
   } catch (error) {
     console.error(error.message);
     return res
-      .status(200)
+      .status(500)
       .send({ Error: "OTP generated failed", Reason: `${error.message}` });
   }
 });

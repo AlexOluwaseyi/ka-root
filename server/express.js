@@ -2,6 +2,7 @@ import express from "express";
 import router from "../app/v1/routers/router.js";
 import morgan from "morgan";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const port = 3000;
@@ -33,6 +34,7 @@ app.use(express.json());
 
 // Parse URL-encoded data (from forms)
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Define routes
 app.use(router);
